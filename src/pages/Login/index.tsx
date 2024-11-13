@@ -88,7 +88,7 @@ export function Login() {
             </Row>
           </Form>
           <div className="mt-3 text-center">
-            <Link to="/register" className="text-decoration-none">Crear una cuenta</Link>
+            <Link to="/register" className="text-decoration-none">Crear una cuenta</Link>z
           </div>
           <div className="mt-2 text-center">
             <Link to="/resetpassword" style={{ color: "#6f42c1" }} className="text-decoration-none">¿Olvidaste tu contraseña?</Link>
