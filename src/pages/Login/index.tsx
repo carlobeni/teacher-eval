@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "./Alert";
+import { LoadingBox } from "../../components/LoadingBox";
 import { Form, Button, Row, Col, Card, Container, Spinner } from "react-bootstrap";
 
 export function Login() {
@@ -39,7 +40,12 @@ export function Login() {
   };
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <LoadingBox
+        loading={true}
+        message="Aguarde un momento"
+      />
+    ); // Muestra la pantalla de carga
   }
 
   return (
@@ -88,7 +94,7 @@ export function Login() {
             </Row>
           </Form>
           <div className="mt-3 text-center">
-            <Link to="/register" className="text-decoration-none">Crear una cuenta</Link>z
+            <Link to="/register" className="text-decoration-none">Crear una cuenta</Link>
           </div>
           <div className="mt-2 text-center">
             <Link to="/resetpassword" style={{ color: "#6f42c1" }} className="text-decoration-none">¿Olvidaste tu contraseña?</Link>
