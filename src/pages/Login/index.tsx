@@ -3,7 +3,16 @@ import { useAuth } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "./Alert";
 import { LoadingBox } from "../../components/LoadingBox";
-import { Form, Button, Row, Col, Card, Container, Spinner } from "react-bootstrap";
+import { FaGoogle } from "react-icons/fa";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Card,
+  Container,
+  Spinner,
+} from "react-bootstrap";
 
 export function Login() {
   const [user, setUser] = useState({
@@ -40,35 +49,67 @@ export function Login() {
   };
 
   if (isLoading) {
-    return (
-      <LoadingBox
-        loading={true}
-        message="Aguarde un momento"
-      />
-    ); // Muestra la pantalla de carga
+    return <LoadingBox loading={true} message="Aguarde un momento" />;
   }
 
+  const handleCloseAlert = () => {
+    setFirebaseError(""); // Esto "destruye" la alerta al quitar el mensaje
+  };
+
   return (
-    <Container className="d-flex align-items-center justify-content-center" style={{ minWidth: "100vw", minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
-      <Card style={{ width: "100%", maxWidth: "400px", borderRadius: "10px", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)" }}>
+    <Container
+      className="d-flex align-items-center justify-content-center"
+      style={{
+        minWidth: "100vw",
+        minHeight: "100vh",
+        backgroundColor: "#121212",
+        color: "#fff",
+      }}
+    >
+      <Card
+        style={{
+          width: "90%", // Responsive: usa el 90% del ancho
+          maxWidth: "500px", // Límite para computadoras
+          borderRadius: "10px",
+          backgroundColor: "#1f1f1f",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+        }}
+      >
         <Card.Body className="p-4">
-          <h3 className="text-center mb-4" style={{ color: "#198754" }}>Iniciar Sesión</h3>
-          {firebaseError && <Alert message={firebaseError} />}
+          <h3
+            className="text-center mb-4"
+            style={{ fontSize: "2rem", fontWeight: "bold", color: "#fff" }}
+          >
+            Iniciar Sesión
+          </h3>
+          {firebaseError && (
+            <Alert message={firebaseError} onClose={handleCloseAlert} />
+          )}
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Correo Institucional</Form.Label>
+            <Form.Group controlId="formEmail" className="mb-4">
+              <Form.Label style={{ fontSize: "1.2rem", color: "#fff" }}>
+                Correo Institucional
+              </Form.Label>
               <Form.Control
                 type="email"
                 name="email"
-                placeholder="nombre@tuinstitucion.edu"
+                placeholder="pepe@fiuna.edu.py"
                 value={user.email}
                 onChange={handleChange}
                 required
+                style={{
+                  backgroundColor: "#262626",
+                  color: "#fff",
+                  border: "1px solid #333",
+                }}
               />
             </Form.Group>
 
-            <Form.Group controlId="formPassword" className="mt-3">
-              <Form.Label>Contraseña</Form.Label>
+            <Form.Group controlId="formPassword" className="mb-4">
+              <Form.Label style={{ fontSize: "1.2rem", color: "#fff" }}>
+                Contraseña
+              </Form.Label>
               <Form.Control
                 type="password"
                 name="password"
@@ -76,28 +117,84 @@ export function Login() {
                 value={user.password}
                 onChange={handleChange}
                 required
+                style={{
+                  backgroundColor: "#262626",
+                  color: "#fff",
+                  border: "1px solid #333",
+                }}
               />
             </Form.Group>
 
-            <Row className="mt-4">
-              <Col xs={12} className="mb-2">
-                <Button type="submit" variant="success" className="w-100" disabled={isLoading}>
-                  {isLoading ? <Spinner animation="border" size="sm" /> : "Iniciar sesión"}
+            <Row>
+              <Col xs={12} className="mb-3">
+                <Button
+                  type="submit"
+                  className="w-100"
+                  style={{
+                    backgroundColor: "#007bff",
+                    borderColor: "#007bff",
+                    fontSize: "1.1rem",
+                  }}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <Spinner animation="border" size="sm" />
+                  ) : (
+                    "Iniciar sesión"
+                  )}
                 </Button>
               </Col>
               <Col xs={12}>
-                <Button variant="outline-danger" className="w-100" onClick={handleGoogleSignIn}>
-                  <i className="bi bi-google me-2"></i>
+                <Button
+                  variant="outline-light"
+                  className="w-100"
+                  onClick={handleGoogleSignIn}
+                  style={{
+                    fontSize: "1.1rem",
+                    color: "#fff",
+                    borderColor: "#6c757d",
+                    backgroundColor: "#1f1f1f",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  onMouseDown={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#dc3545")
+                  } // Fondo rojo al presionar
+                  onMouseUp={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#1f1f1f")
+                  } // Vuelve al color original
+                >
+                  <FaGoogle style={{ marginRight: "10px" }} />
                   Continuar con Google
                 </Button>
               </Col>
             </Row>
           </Form>
-          <div className="mt-3 text-center">
-            <Link to="/register" className="text-decoration-none">Crear una cuenta</Link>
+          <hr style={{ borderTop: "1px solid #fff", margin: "20px 0" }} />
+          <div className="text-center">
+            <Link
+              to="/register"
+              style={{
+                color: "#6c757d",
+                textDecoration: "none",
+                fontSize: "1rem",
+              }}
+            >
+              Crear una cuenta
+            </Link>
           </div>
           <div className="mt-2 text-center">
-            <Link to="/resetpassword" style={{ color: "#6f42c1" }} className="text-decoration-none">¿Olvidaste tu contraseña?</Link>
+            <Link
+              to="/resetpassword"
+              style={{
+                color: "#6f42c1",
+                textDecoration: "none",
+                fontSize: "1rem",
+              }}
+            >
+              ¿Olvidaste tu contraseña?
+            </Link>
           </div>
         </Card.Body>
       </Card>

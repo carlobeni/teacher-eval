@@ -8,14 +8,13 @@ import {getAuth} from "firebase/auth"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDQDConDrltB2CmZ6kizAHpe7TzWxaN0bs",
-  authDomain: "biocareai.firebaseapp.com",
-  databaseURL: "https://biocareai-default-rtdb.firebaseio.com",
-  projectId: "biocareai",
-  storageBucket: "biocareai.appspot.com",
-  messagingSenderId: "765804094663",
-  appId: "1:765804094663:web:c7010dc0d5483ead220ae2",
-  measurementId: "G-N94M9453XP"
+  apiKey: "AIzaSyAdNaWMkQUI92NvA2cC2NPb24L6Efvyv5w",
+  authDomain: "test-login-fiuna.firebaseapp.com",
+  projectId: "test-login-fiuna",
+  storageBucket: "test-login-fiuna.firebasestorage.app",
+  messagingSenderId: "833627566648",
+  appId: "1:833627566648:web:f267de8fc77eca758c2ccd",
+  measurementId: "G-3E7XGXFK5R"
 };
 
 // Initialize Firebase
