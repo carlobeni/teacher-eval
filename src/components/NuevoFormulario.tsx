@@ -44,9 +44,9 @@ const NuevoFormulario: React.FC = () => {
   return (
     <div className="d-flex">
       <div className="flex-grow-1 p-3">
-        <h1>Nuevo Comentario {user?.email}</h1>
-        <h4>Alumno: Jose Hellion</h4>
-        <h4>Profesor: Carlos Benitez</h4>
+        <h1>Nuevo Comentario {user?.displayName}</h1>
+        <h4>Alumno: {user?.displayName}</h4>
+        <h4>Profesor: Ing. Migue Lezcano</h4>
         <Box sx={{ width: 300 }}>
           Puntualidad
           <Slider

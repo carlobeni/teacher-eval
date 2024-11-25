@@ -8,7 +8,7 @@ function Home() {
     <div className="d-flex">
       <Sidebar />
       <div className="flex-grow-1 p-3">
-        <h1>Bienvenido a Opiniones de Profesores {user?.email}</h1>
+        <h1>Bienvenido a Opiniones de Profesores {user?.displayName}</h1>
         <NuevoFormulario />
       </div>
     </div>
