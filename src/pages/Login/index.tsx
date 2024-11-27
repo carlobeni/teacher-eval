@@ -4,15 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "./Alert";
 import { LoadingBox } from "../../components/LoadingBox";
 import { FaGoogle } from "react-icons/fa";
-import {
-  Form,
-  Button,
-  Row,
-  Col,
-  Card,
-  Container,
-  Spinner,
-} from "react-bootstrap";
+import { Form, Button, Row, Col, Card, Container } from "react-bootstrap";
 
 export function Login() {
   const [user, setUser] = useState({
@@ -23,11 +15,6 @@ export function Login() {
   const [firebaseError, setFirebaseError] = useState<string>("");
   const { isLoading, login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,63 +74,7 @@ export function Login() {
             <Alert message={firebaseError} onClose={handleCloseAlert} />
           )}
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formEmail" className="mb-4">
-              <Form.Label style={{ fontSize: "1.2rem", color: "#fff" }}>
-                Correo Institucional
-              </Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                placeholder="pepe@fiuna.edu.py"
-                value={user.email}
-                onChange={handleChange}
-                required
-                style={{
-                  backgroundColor: "#262626",
-                  color: "#fff",
-                  border: "1px solid #333",
-                }}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formPassword" className="mb-4">
-              <Form.Label style={{ fontSize: "1.2rem", color: "#fff" }}>
-                Contraseña
-              </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Contraseña"
-                value={user.password}
-                onChange={handleChange}
-                required
-                style={{
-                  backgroundColor: "#262626",
-                  color: "#fff",
-                  border: "1px solid #333",
-                }}
-              />
-            </Form.Group>
-
             <Row>
-              <Col xs={12} className="mb-3">
-                <Button
-                  type="submit"
-                  className="w-100"
-                  style={{
-                    backgroundColor: "#007bff",
-                    borderColor: "#007bff",
-                    fontSize: "1.1rem",
-                  }}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <Spinner animation="border" size="sm" />
-                  ) : (
-                    "Iniciar sesión"
-                  )}
-                </Button>
-              </Col>
               <Col xs={12}>
                 <Button
                   variant="outline-light"
@@ -171,31 +102,6 @@ export function Login() {
               </Col>
             </Row>
           </Form>
-          <hr style={{ borderTop: "1px solid #fff", margin: "20px 0" }} />
-          <div className="text-center">
-            <Link
-              to="/register"
-              style={{
-                color: "#6c757d",
-                textDecoration: "none",
-                fontSize: "1rem",
-              }}
-            >
-              Crear una cuenta
-            </Link>
-          </div>
-          <div className="mt-2 text-center">
-            <Link
-              to="/resetpassword"
-              style={{
-                color: "#6f42c1",
-                textDecoration: "none",
-                fontSize: "1rem",
-              }}
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </div>
         </Card.Body>
       </Card>
     </Container>

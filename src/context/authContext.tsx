@@ -127,7 +127,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!isDomainAllowed(userCredential.user.email)) {
         await logOut();
-        throw new Error("Solo se permiten cuentas del dominio @fiuna.edu.py.");
+        const error = new Error(
+          "Solo se permiten cuentas del dominio @fiuna.edu.py."
+        );
+        (error as any).code = "auth/invalid-domain"; // Código personalizado
+        throw error;
       }
 
       const signInMethods = await fetchSignInMethodsForEmail(
@@ -145,29 +149,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           );
           await userCredential.user.linkWithCredential(googleCredential);
         } catch (error: any) {
-          if (error.code === "auth/credential-already-in-use") {
-            console.log("La credencial ya está asociada a una cuenta.");
-          } else {
-            throw error;
-          }
+          if (error.code === "auth/invalid-domain") throw error;
+          else throw new Error(`Error desconocido: ${error.code}`);
         }
       }
 
       return userCredential;
     } catch (error: any) {
-      throw new Error(`Error desconocido: ${error.code}`);
+      if (error.code === "auth/invalid-domain") throw error;
+      else throw new Error(`Error desconocido: ${error.code}`);
     }
   };
 
   // Detectar cambios en el estado de autenticación
   useEffect(() => {
+    console.log(user);
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        if (!isDomainAllowed(currentUser.email)) {
-          await logOut();
-          alert("Solo se permiten cuentas del dominio @fiuna.edu.py.");
-        } else {
-          setUser(currentUser);
+        try {
+          if (!isDomainAllowed(currentUser.email)) {
+            await logOut();
+            const error = new Error(
+              "Solo se permiten cuentas del dominio @fiuna.edu.py."
+            );
+            (error as any).code = "auth/invalid-domain"; // Código personalizado
+            throw error;
+          } else {
+            setUser(currentUser);
+            console.log();
+          }
+        } catch (error: any) {
+          if (error.code === "auth/invalid-domain") throw error;
+          else throw new Error(`Error desconocido: ${error.code}`);
         }
       } else {
         setUser(null);
