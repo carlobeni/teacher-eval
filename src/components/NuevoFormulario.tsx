@@ -47,7 +47,7 @@ const NuevoFormulario: React.FC = () => {
         <h1>Nuevo Comentario {user?.displayName}</h1>
         <h4>Alumno: {user?.displayName}</h4>
         <h4>Profesor: Ing. Migue Lezcano</h4>
-        <Box sx={{ width: 300 }}>
+        <Box sx={{ width: 100 }}>
           Puntualidad
           <Slider
             aria-label="Puntualidad"
